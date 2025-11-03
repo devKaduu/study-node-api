@@ -36,6 +36,20 @@
       "when": 1762204500172,
       "tag": "0004_rapid_dazzler",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1762206181496,
+      "tag": "0005_white_microchip",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1762206953567,
+      "tag": "0006_omniscient_zaladane",
+      "breakpoints": true
     }
   ]
 }

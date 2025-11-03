@@ -1,23 +1,21 @@
 import { db } from "./client.ts";
 import { courses, enrollments, users } from "./schema.ts";
 
-import { fakerPT_BR as faker } from "@faker-js/faker";
-
 async function seed() {
   const usersInsert = await db
     .insert(users)
     .values([
       {
-        name: faker.person.fullName(),
-        email: faker.internet.email(),
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com",
       },
       {
-        name: faker.person.fullName(),
-        email: faker.internet.email(),
+        name: "Bob Smith",
+        email: "bob.smith@example.com",
       },
       {
-        name: faker.person.fullName(),
-        email: faker.internet.email(),
+        name: "Charlie Brown",
+        email: "charlie.brown@example.com",
       },
     ])
     .returning();
