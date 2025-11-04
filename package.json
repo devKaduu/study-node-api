@@ -8,7 +8,9 @@
     "dev": "node --env-file .env --watch src/server.ts",
     "db:seed": "node --env-file .env src/database/seed.ts",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "pretest": "dotenv -e .env.test drizzle-kit migrate",
+    "test": "dotenv -e .env.test vitest run --coverage"
   },
   "keywords": [],
   "author": "",
@@ -25,8 +27,14 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.1.0",
     "@types/node": "^24.9.2",
+    "@types/supertest": "^6.0.3",
+    "@vitest/coverage-v8": "^4.0.6",
+    "dotenv-cli": "^11.0.0",
     "drizzle-kit": "^0.31.6",
-    "typescript": "^5.9.3"
+    "supertest": "^7.1.4",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.6"
   }
 }

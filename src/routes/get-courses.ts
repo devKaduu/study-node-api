@@ -40,6 +40,8 @@ export const getCoursesRoute: FastifyPluginAsyncZod = async (server) => {
         conditions.push(ilike(courses.title, `%${search}%`));
       }
 
+      const PAGE_SIZE = 10;
+
       const [result, total] = await Promise.all([
         db
           .select({
@@ -51,8 +53,8 @@ export const getCoursesRoute: FastifyPluginAsyncZod = async (server) => {
           .from(courses)
           .leftJoin(enrollments, eq(enrollments.courseId, courses.id))
           .orderBy(asc(courses[orderBy]))
-          .offset((page - 1) * 2)
-          .limit(10)
+          .offset((page - 1) * PAGE_SIZE)
+          .limit(PAGE_SIZE)
           .where(and(...conditions))
           .groupBy(courses.id),
 
