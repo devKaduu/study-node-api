@@ -50,6 +50,34 @@
       "when": 1762206953567,
       "tag": "0006_omniscient_zaladane",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1762317318453,
+      "tag": "0007_yellow_tomas",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1762317348671,
+      "tag": "0008_clean_arachne",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1762317448112,
+      "tag": "0009_steady_sersi",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1762317719786,
+      "tag": "0010_hesitant_wallop",
+      "breakpoints": true
     }
   ]
 }
