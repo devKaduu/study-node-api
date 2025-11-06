@@ -1,12 +1,10 @@
-//$argon2id$v=19$m=65536,t=3,p=4$NeffYpM3uTMvLvJk+SXtrA$S8kzW+vrdKYDc0pAo9ITDpPiRnzMr9WPoeLEshv07x0
-//alice.johnson@example.com
+import { verify } from "argon2";
 import { eq } from "drizzle-orm";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
+import jwt from "jsonwebtoken";
 import z from "zod";
 import { db } from "../database/client.ts";
 import { users } from "../database/schema.ts";
-
-import { verify } from "argon2";
 
 export const loginRoute: FastifyPluginAsyncZod = async (server) => {
   server.post(
@@ -19,9 +17,14 @@ export const loginRoute: FastifyPluginAsyncZod = async (server) => {
           email: z.email(),
           password: z.string(),
         }),
-        // response: {
-        //   201: z.object({ courseId: z.uuid() }).describe("Success Create"),
-        // },
+        response: {
+          200: z.object({
+            token: z.string(),
+          }),
+          400: z.object({
+            message: z.string(),
+          }),
+        },
       },
     },
     async (request, response) => {
@@ -41,7 +44,13 @@ export const loginRoute: FastifyPluginAsyncZod = async (server) => {
         return response.status(400).send({ message: "Credenciais inválidas" });
       }
 
-      return response.status(200).send({ message: "ok" });
+      if (!process.env.JWT_SECRET) {
+        throw new Error("JWT_SECRET is not defined");
+      }
+
+      const token = jwt.sign({ sub: user.id, role: user.role }, process.env.JWT_SECRET);
+
+      return response.status(200).send({ token });
     }
   );
 };
