@@ -35,9 +35,9 @@ test("Get Courses Verify enrollment", async () => {
   const titleId = randomUUID();
 
   const course = await makeCourse(titleId);
-  const user = await makeUser();
+  const { user } = await makeUser();
 
-  const enrollment = await makeEnrollment(course.id, user.id);
+  await makeEnrollment(course.id, user.id);
 
   const response = await request(server.server).get(`/courses?search=${titleId}`);
 

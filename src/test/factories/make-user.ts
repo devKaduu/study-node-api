@@ -19,6 +19,6 @@ export const makeUser = async () => {
 
   return {
     user: result[0],
-    password: passwordBeforeHash,
+    passwordBeforeHash,
   };
 };
