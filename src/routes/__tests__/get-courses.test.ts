@@ -4,16 +4,19 @@ import { expect, test } from "vitest";
 import { server } from "../../app.ts";
 import { makeCourse } from "../../test/factories/make-course.ts";
 import { makeEnrollment } from "../../test/factories/make-enrollments.ts";
-import { makeUser } from "../../test/factories/make-user.ts";
+import { makeAuthenticatedUser, makeUser } from "../../test/factories/make-user.ts";
 
 test("Get Courses Search", async () => {
   await server.ready();
 
   const titleId = randomUUID();
 
+  const { token } = await makeAuthenticatedUser("manager");
   const course = await makeCourse(titleId);
 
-  const response = await request(server.server).get(`/courses?search=${titleId}`);
+  const response = await request(server.server)
+    .get(`/courses?search=${titleId}`)
+    .set("Authorization", token);
 
   expect(response.status).toEqual(200);
   expect(response.body).toEqual({
@@ -34,12 +37,15 @@ test("Get Courses Verify enrollment", async () => {
 
   const titleId = randomUUID();
 
+  const { token } = await makeAuthenticatedUser("manager");
   const course = await makeCourse(titleId);
   const { user } = await makeUser();
 
   await makeEnrollment(course.id, user.id);
 
-  const response = await request(server.server).get(`/courses?search=${titleId}`);
+  const response = await request(server.server)
+    .get(`/courses?search=${titleId}`)
+    .set("Authorization", token);
 
   expect(response.status).toEqual(200);
   expect(response.body).toEqual({
